@@ -8,6 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @PropertySource("classpath:application.properties")
@@ -55,5 +56,8 @@ public class WebScrapingService {
         UtilsService.compactToZip(arquivos, ROUTE_DOWNLOAD_FILE, NAME_ZIP);
 
         driver.quit();
+
+        UtilsService.deleteFilesByPath(arquivos.stream()
+                .map(path -> ROUTE_DOWNLOAD_FILE.concat(path)).collect(Collectors.toList()));
     }
 }

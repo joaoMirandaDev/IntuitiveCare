@@ -7,6 +7,9 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +67,19 @@ public class UtilsService {
         driver.get(urlPage);
         return driver;
     }
+
+    public static void deleteFilesByPath(List<String> route) throws IOException {
+        route.forEach(obj -> {
+            Path path = Paths.get(obj);
+            try {
+                Files.delete(path);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
+    }
+
 
     public static void waitForDownloadToComplete(String downloadPath, String fileName) throws InterruptedException, IOException {
         File file = new File(downloadPath + fileName);

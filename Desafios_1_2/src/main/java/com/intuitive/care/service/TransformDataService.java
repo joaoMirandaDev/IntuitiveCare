@@ -38,11 +38,11 @@ public class TransformDataService {
 
     // Função para processar o PDF e exportar os dados para um arquivo CSV
     public void processPdfAndExportToCSV() throws IOException {
-
-        UtilsService.extractPdfFromZip(directory + zip, pdfFilename, directory);
+        Integer count = 0;
+        UtilsService.extractPdfFromZip(directory.concat(zip), pdfFilename, directory);
 
         // Caminho do arquivo PDF
-        File pdfFile = new File(directory+pdfFilename);
+        File pdfFile = new File(directory.concat(pdfFilename));
 
         // Criação de uma lista para armazenar as linhas extraídas
         List<String[]> data = new ArrayList<>();
@@ -69,7 +69,7 @@ public class TransformDataService {
                     // Iterando sobre as linhas e células para coletar o conteúdo
                     for (List<RectangularTextContainer> cells : rows) {
                         List<String> row = new ArrayList<>();
-
+                        System.out.println("Adicionando linhas no CSV:" + count++);
                         // Iterando sobre as células e extraindo o texto
                         for (RectangularTextContainer cell : cells) {
                             // Substituindo \r por espaços
@@ -87,7 +87,7 @@ public class TransformDataService {
         }
 
         // Caminho do arquivo CSV para salvar os dados extraídos
-        String csvFilePath = directory+anexoCsv;
+        String csvFilePath = directory.concat(anexoCsv);
 
         // Criando e escrevendo os dados no arquivo CSV
         try (CSVWriter writer = new CSVWriter(new FileWriter(csvFilePath))) {
@@ -97,5 +97,8 @@ public class TransformDataService {
         List<String> arquivos = List.of(anexoCsv);
 
         UtilsService.compactToZip(arquivos,directory, "Teste_Joao_Victor.zip");
+
+        List<String> filesDelete = List.of(directory.concat(anexoCsv), directory.concat(pdfFilename));
+        UtilsService.deleteFilesByPath(filesDelete);
     }
 }
