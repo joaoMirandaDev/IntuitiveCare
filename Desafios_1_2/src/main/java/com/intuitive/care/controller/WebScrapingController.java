@@ -24,7 +24,7 @@ public class WebScrapingController {
         this.service = service;
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/downloadAndCompressFiles", method = RequestMethod.POST, produces = "application/json")
     @Operation(summary = "Método utilizado para baixar os documentos e compactá-los atráves do Selenium",
             description = "Método utilizado para baixar os documentos e compactá-los atráves do Selenium", tags = TAG)
     public ResponseEntity<Void> downloadAndCompressFiles() throws IOException {

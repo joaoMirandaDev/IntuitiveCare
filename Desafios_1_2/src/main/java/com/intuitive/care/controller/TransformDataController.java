@@ -23,8 +23,8 @@ public class TransformDataController {
     }
 
     @RequestMapping(value = "/processPdfAndExportToCSV", method = RequestMethod.POST, produces = "application/json")
-    @Operation(summary = "Método utilizado para extrair os pdf do zip, converter em CSV e zip o csv",
-            description = "Método utilizado para extrair os pdf do zip, converter em CSV e zip o csv", tags = TAG)
+    @Operation(summary = "Método utilizado para extrair o anexo 1 do zip, converter em CSV e zipar o csv",
+            description = "Método utilizado para extrair o anexo 1 do zip, converter em CSV e zipar o csv", tags = TAG)
     public ResponseEntity<Void> processPdfAndExportToCSV() throws IOException {
         service.processPdfAndExportToCSV();
         return ResponseEntity.noContent().build();

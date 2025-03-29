@@ -2,6 +2,8 @@ package com.intuitive.care.service;
 
 import com.intuitive.care.utils.service.UtilsService;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import technology.tabula.*;
 import com.opencsv.CSVWriter;
 import org.springframework.stereotype.Service;
@@ -9,14 +11,19 @@ import technology.tabula.extractors.SpreadsheetExtractionAlgorithm;
 
 import java.io.*;
 import java.util.*;
-import java.util.zip.*;
 
 @Service
+@PropertySource("classpath:application.properties")
 public class TransformDataService {
 
-    private static final String directory = "/home/joao/Documentos/";
-    private static final String zip = "Anexos.zip";
-    private static final String pdfFilename = "Anexo_I_Rol_2021RN_465.2021_RN627L.2024.pdf";
+    @Value("${directory}")
+    private String directory;
+    @Value("${name.zip}")
+    private String zip;
+    @Value("${anexo.I}")
+    private String pdfFilename;
+    @Value("${anexo.csv}")
+    private String anexoCsv;
 
     // Função para substituir valores
     public String replaceValue(String value) {
@@ -80,14 +87,14 @@ public class TransformDataService {
         }
 
         // Caminho do arquivo CSV para salvar os dados extraídos
-        String csvFilePath = directory+"Teste_Joao_Victor.csv";
+        String csvFilePath = directory+anexoCsv;
 
         // Criando e escrevendo os dados no arquivo CSV
         try (CSVWriter writer = new CSVWriter(new FileWriter(csvFilePath))) {
             // Escrevendo todas as linhas coletadas no CSV
             writer.writeAll(data);
         }
-        List<String> arquivos = List.of("Teste_Joao_Victor.csv");
+        List<String> arquivos = List.of(anexoCsv);
 
         UtilsService.compactToZip(arquivos,directory, "Teste_Joao_Victor.zip");
     }
