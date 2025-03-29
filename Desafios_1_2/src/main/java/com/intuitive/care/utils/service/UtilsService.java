@@ -46,7 +46,6 @@ public class UtilsService {
                     zipOutputStream.closeEntry();
                 }
             }
-            System.out.println("Arquivo ZIP criado com sucesso em: " + routeFile);
 
         } catch (IOException e) {
             throw new IOException("Erro ao compactar arquivos para ZIP: " + e.getMessage(), e);
