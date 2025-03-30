@@ -1,3 +1,5 @@
+/* RODE AS SQL DE UMA A UMA PARA EVITAR POSSIVEIS ERROS, CADA SQL TEM O LIMITADOR DE ; */
+
 CREATE TABLE operadoras (
     id BIGINT NOT NULL AUTO_INCREMENT,
     registro_ans TEXT NOT NULL,
@@ -22,6 +24,8 @@ CREATE TABLE operadoras (
     data_registro_ans DATE,
     PRIMARY KEY (id)
 );
+
+/* Para importar o csv, coloque o arquivo .csv dentro da pasta desejada e altere a rota no comando abaixo */
 
 LOAD DATA INFILE '/var/lib/mysql-files/Relatorio_cadop.csv'
 INTO TABLE operadoras
@@ -63,7 +67,9 @@ CREATE TABLE dados_contabeis (
     PRIMARY KEY (id)
 );
 
-LOAD DATA INFILE '/var/lib/mysql-files/2024/4T2024.csv'
+/* Para importar o arquivo .csv, coloque-o na pasta desejada e altere a rota no comando abaixo. Será necessário alterar a rota 8 vezes, pois essa é a quantidade de arquivos que precisam ser importados. Após importar cada arquivo, atualize a rota no comando para importar o próximo. */
+
+LOAD DATA INFILE '/var/lib/mysql-files/2023/1T2023.csv'
 INTO TABLE dados_contabeis
 FIELDS TERMINATED BY ';'     
 ENCLOSED BY '"' 
@@ -78,7 +84,7 @@ IGNORE 1 ROWS
     vl_saldo_final
 );
 
-/* RODAR ESTE TRECHO SOMENTE APÓS RODAS EM TODAS AS TABELAS QUE DESEJA IMPORTAR */
+/* RODAR ESTE TRECHO SOMENTE APÓS RODAR AS TABELAS MENCIONADAS ACIMA */
 
 UPDATE dados_contabeis
 SET data = STR_TO_DATE(data, '%d/%m/%Y')
