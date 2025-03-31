@@ -1,5 +1,9 @@
 /* RODE AS SQL DE UMA A UMA PARA EVITAR POSSIVEIS ERROS, CADA SQL TEM O LIMITADOR DE ; */
 
+/* 
+    Criação da tabela "operadoras", que armazenará informações sobre operadoras
+*/
+
 CREATE TABLE operadoras (
     id BIGINT NOT NULL AUTO_INCREMENT,
     registro_ans TEXT NOT NULL,
@@ -56,6 +60,11 @@ IGNORE 1 ROWS
     data_registro_ans
 );
 
+/* 
+    Criação da tabela "dados_contabeis", que armazenará dados contábeis das operadoras,
+    como saldo inicial e final de contas.
+*/
+
 CREATE TABLE dados_contabeis (
     id BIGINT NOT NULL AUTO_INCREMENT,
     data VARCHAR(15) NOT NULL,
@@ -67,7 +76,8 @@ CREATE TABLE dados_contabeis (
     PRIMARY KEY (id)
 );
 
-/* Para importar o arquivo .csv, coloque-o na pasta desejada e altere a rota no comando abaixo. Será necessário alterar a rota 8 vezes, pois essa é a quantidade de arquivos que precisam ser importados. Após importar cada arquivo, atualize a rota no comando para importar o próximo. */
+/* Para importar o arquivo .csv, coloque-o na pasta desejada e altere a rota no comando abaixo. Será necessário alterar a rota 8 vezes, pois essa é a
+ quantidade de arquivos que precisam ser importados. Após importar cada arquivo, atualize a rota no comando para importar o próximo. */
 
 LOAD DATA INFILE '/var/lib/mysql-files/2023/1T2023.csv'
 INTO TABLE dados_contabeis
@@ -86,11 +96,22 @@ IGNORE 1 ROWS
 
 /* RODAR ESTE TRECHO SOMENTE APÓS RODAR AS TABELAS MENCIONADAS ACIMA */
 
+
+/* 
+    Atualização da coluna "data" na tabela "dados_contabeis" para o formato DATE,
+    convertendo a string para um formato de data.
+*/
+
 UPDATE dados_contabeis
 SET data = STR_TO_DATE(data, '%d/%m/%Y')
 WHERE data LIKE '%/%/%';
 
 ALTER TABLE dados_contabeis MODIFY COLUMN data DATE NOT NULL;
+
+/* 
+    Atualização dos valores de vl_saldo_inicial e vl_saldo_final, substituindo as vírgulas
+    por pontos para garantir que os valores sejam reconhecidos corretamente como números decimais.
+*/
 
 UPDATE dados_contabeis
 SET 
@@ -98,10 +119,20 @@ SET
     vl_saldo_final = REPLACE(vl_saldo_final, ',', '.')
 WHERE 
     vl_saldo_inicial LIKE '%,%' OR vl_saldo_final LIKE '%,%';
+
+/* 
+    Alteração das colunas vl_saldo_inicial e vl_saldo_final para o tipo DECIMAL(15, 2),
+    garantindo que os valores sejam armazenados como números decimais com duas casas decimais.
+*/
    
 ALTER TABLE dados_contabeis
 MODIFY COLUMN vl_saldo_inicial DECIMAL(15, 2),
 MODIFY COLUMN vl_saldo_final DECIMAL(15, 2);
+
+/* 
+    Criação de índices nas colunas "vl_saldo_inicial" e "vl_saldo_final" para melhorar o desempenho
+    de consultas deses campos.
+*/
 
 CREATE INDEX idx_saldo_inicial ON dados_contabeis(vl_saldo_inicial);
 CREATE INDEX idx_saldo_final ON dados_contabeis(vl_saldo_final);
@@ -113,9 +144,9 @@ SELECT o.registro_ans, o.razao_social, o.cnpj, dc.descricao,
        sum(dc.vl_saldo_final) as valor_final
 FROM dados_contabeis dc
 INNER JOIN operadoras o ON o.registro_ans = dc.reg_ans
-WHERE dc.descricao = 'EVENTOS/ SINISTROS CONHECIDOS OU AVISADOS  DE ASSISTÊNCIA A SAÚDE MEDICO HOSPITALAR '
+WHERE dc.descricao LIKE '%EVENTOS/ SINISTROS CONHECIDOS OU AVISADOS  DE ASSISTÊNCIA A SAÚDE MEDICO HOSPITALAR%'
 AND dc.data BETWEEN '2024-10-01' AND '2024-12-31'
-GROUP BY o.registro_ans, o.razao_social, o.cnpj ORDER BY valor_final DESC LIMIT 10;
+GROUP BY o.registro_ans, o.razao_social, o.cnpj, dc.descricao  ORDER BY valor_final DESC LIMIT 10;
 
 /* Consulta os registros com as maiores despesas com base no ultimo ano com limite de 10 */
 
@@ -124,7 +155,7 @@ SELECT o.registro_ans, o.razao_social, o.cnpj, dc.descricao,
        sum(dc.vl_saldo_final) as valor_final
 FROM dados_contabeis dc
 INNER JOIN operadoras o ON o.registro_ans = dc.reg_ans
-WHERE dc.descricao = 'EVENTOS/ SINISTROS CONHECIDOS OU AVISADOS  DE ASSISTÊNCIA A SAÚDE MEDICO HOSPITALAR '
+WHERE dc.descricao LIKE '%EVENTOS/ SINISTROS CONHECIDOS OU AVISADOS  DE ASSISTÊNCIA A SAÚDE MEDICO HOSPITALAR%'
 AND dc.data BETWEEN '2024-01-01' AND '2024-12-31'
 GROUP BY o.registro_ans, o.razao_social, o.cnpj, dc.descricao ORDER BY valor_final DESC LIMIT 10;  
 
