@@ -1,0 +1,13 @@
+# Ignora a pasta node_modules
+node_modules/
+
+# Ignora os arquivos de log
+*.log
+
+# Ignora arquivos temporários do editor
+.vscode/
+.idea/
+
+# Ignora arquivos de configuração do sistema
+.DS_Store
+Thumbs.db

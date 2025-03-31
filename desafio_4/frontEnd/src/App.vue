@@ -13,15 +13,17 @@ div
   div
     el-text(class="mx-1" style="font-size: 36px;") Resultados:
     el-table(:data="operadoras" border style="width: 100%  ")
-      el-table-column(prop="Registro_ANS" label="Registro ANS")
-      el-table-column(prop="CNPJ" label="CNPJ" width="180")
-      el-table-column(prop="Razao_Social" label="Razão Social")
+      el-table-column(prop="Registro_ANS" label="Registro ANS" width='150px')
+      el-table-column(prop="CNPJ" label="CNPJ" width="140")
+      el-table-column(prop="Razao_Social" label="Razão Social" width='440px')
+      el-table-column(prop="Modalidade" label="Modalidade")
       el-table-column(prop="Telefone" label="Telefone")
         template(#default="{ row }")
-          span {{ '(' +row.DDD + ') ' + row.Telefone }}
+          span {{ row.Telefone != null ? '(' +row.DDD + ') ' + row.Telefone : '-' }}
       el-table-column(label="Cidade" )
         template(#default="{ row }")
           span {{ row.UF + '/' + row.Cidade }}
+      el-table-column(prop="Representante" label="Representante")
     el-pagination(style="margin-top: 20px; display: flex; justify-content: flex-end;"
       background layout="prev, pager, next" :total="1000" 
       @change="handlePage"
@@ -57,7 +59,6 @@ export default {
     async searchOperadoras() {
       try {
         const response = await axios.get(`http://localhost:1081/search?query=${this.query}&page=${this.page}`);
-        console.log('Resposta recebida:', response.data);
         this.totalPage = response.data.total_pages;
         this.page = response.data.current_page;
         this.totalResult = response.data.total_results;
