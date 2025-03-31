@@ -11,7 +11,6 @@ div
   )
   
   div
-    el-text(class="mx-1" style="font-size: 36px;") Resultados:
     el-table(:data="operadoras" border style="width: 100%  ")
       el-table-column(prop="Registro_ANS" label="Registro ANS" width='150px')
       el-table-column(prop="CNPJ" label="CNPJ" width="140")
@@ -58,7 +57,7 @@ export default {
     },
     async searchOperadoras() {
       try {
-        const response = await axios.get(`http://localhost:1081/search?query=${this.query}&page=${this.page}`);
+        const response = await axios.get(`http://localhost:1081/search?query=${this.query.trim()}&page=${this.page}`);
         this.totalPage = response.data.total_pages;
         this.page = response.data.current_page;
         this.totalResult = response.data.total_results;
