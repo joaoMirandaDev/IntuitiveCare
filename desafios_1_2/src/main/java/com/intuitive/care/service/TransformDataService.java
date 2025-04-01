@@ -38,34 +38,25 @@ public class TransformDataService {
 
     // Metodo para extrair dados do PDF e exportar para um arquivo CSV
     public void processPdfAndExportToCSV() throws IOException {
-        Integer count = 0;
         UtilsService.extractPdfFromZip(directory.concat(zip), pdfFilename, directory);
 
-        // Caminho do arquivo PDF
         File pdfFile = new File(directory.concat(pdfFilename));
 
-        // Criação de uma lista para armazenar as linhas extraídas
         List<String[]> data = new ArrayList<>();
 
         try (PDDocument document = PDDocument.load(pdfFile)) {
-            // Usar SpreadsheetExtractionAlgorithm para extrair dados de tabela
             SpreadsheetExtractionAlgorithm sea = new SpreadsheetExtractionAlgorithm();
 
-            // Usar ObjectExtractor para extrair páginas
             ObjectExtractor extractor = new ObjectExtractor(document);
             PageIterator pi = extractor.extract();
 
             while (pi.hasNext()) {
-                // Iterando sobre as páginas do documento
                 Page page = pi.next();
 
-                // Extrair as tabelas usando SpreadsheetExtractionAlgorithm
                 List<Table> tables = sea.extract(page);
 
-                // Iterando sobre as tabelas na página
                 for (Table table : tables) {
                     List<List<RectangularTextContainer>> rows = table.getRows();
-                    // Iterando sobre as linhas e células para coletar o conteúdo
                     for (List<RectangularTextContainer> cells : rows) {
                         List<String> row = new ArrayList<>();
                         for (RectangularTextContainer cell : cells) {
@@ -73,17 +64,13 @@ public class TransformDataService {
                             text = replaceValue(text);
                             row.add(text);
                         }
-                        // Adicionando a linha ao conjunto de dados
                         data.add(row.toArray(new String[0]));
                     }
                 }
             }
         }
-        // Caminho do arquivo CSV para salvar os dados extraídos
         String csvFilePath = directory.concat(anexoCsv);
-        // Criando e escrevendo os dados no arquivo CSV
         try (CSVWriter writer = new CSVWriter(new FileWriter(csvFilePath))) {
-            // Escrevendo todas as linhas coletadas no CSV
             writer.writeAll(data);
         }
         UtilsService.compactToZip(List.of(anexoCsv),directory, "Teste_Joao_Victor.zip");

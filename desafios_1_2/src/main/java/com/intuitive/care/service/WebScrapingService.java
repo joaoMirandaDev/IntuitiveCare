@@ -26,11 +26,9 @@ public class WebScrapingService {
             "https://www.gov.br/ans/pt-br/acesso-a-informacao/participacao-da-sociedade/atualizacao-do-rol-de-procedimentos";
 
     public void downloadAndCompressFiles() throws IOException {
-        // Define o caminho para o ChromeDriver
         System.setProperty("webdriver.chrome.driver", "src/drive/chromedriver");
         WebDriver driver = UtilsService.configWebDriver(ROUTE_DOWNLOAD_FILE,URL_PAGE);
 
-        /* Este xpath e necessario caso precise aceitar os cookies, caso nao seja necessario remover o trecho abaixo */
         driver.findElement(By.xpath("/html/body/div[5]/div/div/div/div/div[2]/button[3]")).click();
 
         Map<String, String> xpaths = new HashMap<>();

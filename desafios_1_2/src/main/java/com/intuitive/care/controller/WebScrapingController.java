@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
-
 @RestController
-@RequestMapping("/api/webScraping/")
+@RequestMapping("/api/webScraping")
 public class WebScrapingController {
 
     private static final String TAG = "1° Etapa - WebScraping";

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api/transformData/")
+@RequestMapping("/api/transformData")
 public class TransformDataController {
     private static final String TAG = "2° Etapa - TransformData";
 

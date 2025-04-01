@@ -83,7 +83,7 @@ CREATE TABLE dados_contabeis (
 );
 
 /* Para importar o arquivo .csv, coloque-o na pasta de arquivos do MYSQl e altere a rota no comando abaixo. Será necessário alterar a rota 8 vezes, pois essa é a
- quantidade de arquivos que precisam ser importados eles se encontram dentro da pasta 2023 e 2023. Após importar cada arquivo, atualize a rota no comando para importar o próximo. */
+ quantidade de arquivos que precisam ser importados eles se encontram dentro da pasta 2023 e 2024. Após importar cada arquivo, atualize a rota no comando para importar o próximo. */
 
 LOAD DATA INFILE '/var/lib/mysql-files/2023/1T2023.csv'
 INTO TABLE dados_contabeis

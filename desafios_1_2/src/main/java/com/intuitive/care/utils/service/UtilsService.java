@@ -79,7 +79,6 @@ public class UtilsService {
         });
     }
 
-
     public static void waitForDownloadToComplete(String downloadPath, String fileName) throws InterruptedException, IOException {
         File file = new File(downloadPath + fileName);
         int timeout = 60;
@@ -95,8 +94,6 @@ public class UtilsService {
         }
     }
 
-
-    // Função para extrair PDF do arquivo ZIP
     public static void extractPdfFromZip(String zipPath,String pdfFilename,String outputDir) throws IOException {
         try (ZipFile zipFile = new ZipFile(zipPath)) {
             ZipEntry entry = zipFile.getEntry(pdfFilename);
@@ -115,5 +112,4 @@ public class UtilsService {
             }
         }
     }
-
 };
