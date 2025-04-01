@@ -13,7 +13,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Carregar o DataFrame globalmente
-df = pd.read_csv('/home/joao/Área de trabalho/intuitiveCare/desafio_3/Relatorio_cadop.csv', delimiter=';', encoding='utf-8')
+df = pd.read_csv('Relatorio_cadop.csv', delimiter=';', encoding='utf-8')
 
 # Função para remover acentos
 def remove_accent(text: str) -> str:

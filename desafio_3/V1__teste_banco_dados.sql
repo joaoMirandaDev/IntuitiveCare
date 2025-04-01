@@ -1,5 +1,11 @@
 /* RODE AS SQL DE UMA A UMA PARA EVITAR POSSIVEIS ERROS, CADA SQL TEM O LIMITADOR DE ; */
 
+/* Links de download
+    https://dadosabertos.ans.gov.br/FTP/PDA/operadoras_de_plano_de_saude_ativas/
+    https://dadosabertos.ans.gov.br/FTP/PDA/demonstracoes_contabeis/
+
+ */
+
 /* 
     Criação da tabela "operadoras", que armazenará informações sobre operadoras
 */
@@ -29,7 +35,7 @@ CREATE TABLE operadoras (
     PRIMARY KEY (id)
 );
 
-/* Para importar o csv, coloque o arquivo .csv dentro da pasta desejada e altere a rota no comando abaixo */
+/* Para importar o csv, coloque o arquivo .csv coloque-o na pasta de arquivos do MYSQl e altere a rota no comando abaixo */
 
 LOAD DATA INFILE '/var/lib/mysql-files/Relatorio_cadop.csv'
 INTO TABLE operadoras
@@ -76,8 +82,8 @@ CREATE TABLE dados_contabeis (
     PRIMARY KEY (id)
 );
 
-/* Para importar o arquivo .csv, coloque-o na pasta desejada e altere a rota no comando abaixo. Será necessário alterar a rota 8 vezes, pois essa é a
- quantidade de arquivos que precisam ser importados. Após importar cada arquivo, atualize a rota no comando para importar o próximo. */
+/* Para importar o arquivo .csv, coloque-o na pasta de arquivos do MYSQl e altere a rota no comando abaixo. Será necessário alterar a rota 8 vezes, pois essa é a
+ quantidade de arquivos que precisam ser importados eles se encontram dentro da pasta 2023 e 2023. Após importar cada arquivo, atualize a rota no comando para importar o próximo. */
 
 LOAD DATA INFILE '/var/lib/mysql-files/2023/1T2023.csv'
 INTO TABLE dados_contabeis
