@@ -14,7 +14,7 @@
    Este serviço foi desenvolvido em Java 17 juntamente com o Spring. O metodo pode ser acessado pelo Postman na seguinte rota: http://localhost:1080/api/transformData/processPdfAndExportToCSV. metodo do tipo POST, ou caso deseje pode acessar 
     a documentação(swegger) na seguinte rota no navegador: http://localhost:1080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config.
    Para executar este serviço, é obrigatório que o serviço de WEB SCRAPING tenha sido executado previamente. Este serviço de transformação de dados buscará um documento específico dentro do arquivo .zip gerado anteriormente.
-    Após a extração do documento, ele realizará a extração dos dados da tabela e gerará um arquivo .csv contendo os dados extraídos. Este arquivo .csv será salvo no diretório especificado anteriormente com o nome de Teste_Joao_Victor.csv
+    Após a extração do documento, ele realizará a extração dos dados da tabela e gerará um arquivo .csv contendo os dados extraídos. Este arquivo .csv será compactado em .ZIP e salvo no diretório especificado anteriormente com o nome de Teste_Joao_Victor.zip
 
 # 3 - TESTE DE BANCO DE DADOS
   Para esta etapa, foi gerado um arquivo .sql utilizando MYSQL dentro da pasta "desafio 3". Para executá-lo, será necessário criar um banco de dados MYSQL e rodar o script no mesmo. Além disso, é importante colocar os arquivos solicitados(Relatorio_cadop.csv e demonstrações contabeis) no desafio dentro da pasta de arquivos do MySQL.
