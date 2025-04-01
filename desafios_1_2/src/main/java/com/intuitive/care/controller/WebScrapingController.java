@@ -15,7 +15,7 @@ import java.io.IOException;
 @RequestMapping("/api/webScraping/")
 public class WebScrapingController {
 
-    private static final String TAG = "WebScraping";
+    private static final String TAG = "1° Etapa - WebScraping";
 
     @Autowired
     private WebScrapingService service;

@@ -13,7 +13,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/transformData/")
 public class TransformDataController {
-    private static final String TAG = "TransformData";
+    private static final String TAG = "2° Etapa - TransformData";
 
     @Autowired
     private TransformDataService service;
