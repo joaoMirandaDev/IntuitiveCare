@@ -5,7 +5,7 @@
     diferente, baixe o driver correspondente no site oficial do Google: ChromeDriver Downloads e coloque dentro da para src/drive com o seguinte nome chromedriver.
   Antes de executar o serviço, é necessário realizar algumas configurações, como alterar o local de download dos arquivos. Para isso, acesse o arquivo application.properties, localize a parte referente ao directory e 
    altere para o caminho desejado.
-  Na linha 34 dentro da service, há um trecho de código responsável por clicar no botão de aceitação de cookies da página do Gov. Caso os cookies estejam desativados por padrão no navegador, comente ou remova esse trecho de código.
+  Na linha 32 dentro da service, há um trecho de código responsável por clicar no botão de aceitação de cookies da página do Gov. Caso os cookies estejam desativados por padrão no navegador, comente ou remova esse trecho de código.
   O serviço pode ser executado pelo Postman, utilizando a seguinte rota: http://localhost:1080/api/webScraping/downloadAndCompressFiles metodo do tipo POST, ou caso deseje pode acessar a documentação(swegger) na seguinte 
     rota no navegador: http://localhost:1080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config, este serviço irá abrir o navegador e forma automática baixar os arquivos necessários, em seguida, irá compactar os 
     arquivos em .zip chamando Anexos.zip. 
