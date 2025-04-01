@@ -1,0 +1,71 @@
+{
+    "info": {
+        "_postman_id": "7322b3cd-cee9-4262-957d-27ba27b40ec1",
+        "name": "Nova Coleção",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "20658974"
+    },
+    "item": [
+        {
+            "name": "Buscar Dados",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:1081/search?query=419761",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "1081",
+                    "path": [
+                        "search"
+                    ],
+                    "query": [
+                        {
+                            "key": "query",
+                            "value": "419761"
+                        }
+                    ]
+                }
+            },
+            "response": [
+                {
+                    "status": "OK",
+                    "code": 200,
+                    "body": {
+                        "current_page": 1,
+                        "per_page": 15,
+                        "results": [
+                            {
+                                "Bairro": "PRAÇA DA BANDEIRA",
+                                "CEP": 36660000,
+                                "CNPJ": 19541931000125,
+                                "Cargo_Representante": "SÓCIO ADMINISTRADOR",
+                                "Cidade": "Além Paraíba",
+                                "Complemento": null,
+                                "DDD": 32.0,
+                                "Data_Registro_ANS": "2015-05-19",
+                                "Endereco_eletronico": "contabilidade@cbnassessoria.com.br",
+                                "Fax": null,
+                                "Logradouro": "RUA CAPITÃO MEDEIROS DE REZENDE",
+                                "Modalidade": "Administradora de Benefícios",
+                                "Nome_Fantasia": null,
+                                "Numero": "274",
+                                "Razao_Social": "18 DE JULHO ADMINISTRADORA DE BENEFÍCIOS LTDA",
+                                "Regiao_de_Comercializacao": 6.0,
+                                "Registro_ANS": 419761,
+                                "Representante": "LUIZ HENRIQUE MARENDINO GONÇALVES",
+                                "Telefone": 34624649.0,
+                                "UF": "MG"
+                            }
+                        ],
+                        "total_pages": 1,
+                        "total_results": 1
+                     } ,
+                    "header": []
+                }
+            ]
+        }
+    ]
+}
+
