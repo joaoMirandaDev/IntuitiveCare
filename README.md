@@ -19,7 +19,9 @@
 # 3 - TESTE DE BANCO DE DADOS
   Para esta etapa, foi gerado um arquivo .sql dentro da pasta "desafio 3". Para executá-lo, será necessário rodar o script no MySQL. Além disso, é importante colocar os arquivos solicitados(Relatorio_cadop.csv e demonstrações contabeis) no desafio dentro da pasta de arquivos do MySQL.
   O próprio arquivo .sql contém comentários que explicam passo a passo o que deve ser seguido durante a execução.
+  links: https://dadosabertos.ans.gov.br/FTP/PDA/demonstracoes_contabeis/ , https://dadosabertos.ans.gov.br/FTP/PDA/operadoras_de_plano_de_saude_ativas/
 
 # 4 - TESTE DE API
   Para seguir com essa etapa, primeiro você precisa configurar a rota do arquivo Relatorio_cadop.csv no app.py dentro da pasta back-end na linha 16. Depois, no front-end, é necessário ter o Node.js instalado. Com isso, basta rodar os comandos: npm install, npm run serve.
   Feito isso, a quarta etapa estará funcionando. O front-end vai se comunicar com o back-end por meio do Relatorio_cadop.csv e exibir uma lista paginada de operadoras. No topo da tabela, haverá um campo de pesquisa onde você poderá buscar qualquer informação presente nas colunas do arquivo.
+  Obs: Relatorio_cadop.csv foi baixado na etapa 3
