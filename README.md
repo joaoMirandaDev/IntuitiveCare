@@ -23,5 +23,5 @@
 
 # 4 - TESTE DE API
   Para seguir com essa etapa, primeiro você precisa possui o python instalado, uma vez instalado entre na pasta backend e execute o seguinte comando: phyton app.py ou utilize o arquivo executavel que se enconta na pasta. Depois, no front-end, é necessário ter o Node.js instalado. Com isso, basta rodar os comandos: npm install, npm run serve.
-  Feito isso, a quarta etapa estará funcionando. O front-end vai se comunicar com o back-end por meio do Relatorio_cadop.csv e exibir uma lista paginada de operadoras. No topo da tabela, haverá um campo de pesquisa onde você poderá buscar qualquer informação presente nas colunas do arquivo.
-  Obs: Relatorio_cadop.csv foi baixado na etapa 3
+  Feito isso, a quarta etapa estará funcionando. O front-end vai se comunicar com o back-end por meio do Relatorio_cadop.csv que se encontra dentro da pasta desafio_4/backend, e exibira uma lista paginada de operadoras. No topo da tabela, haverá um campo de pesquisa onde você poderá buscar qualquer informação presente nas colunas do arquivo.
+
