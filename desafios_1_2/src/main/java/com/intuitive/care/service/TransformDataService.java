@@ -4,6 +4,7 @@ import com.intuitive.care.utils.service.UtilsService;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.web.multipart.MultipartFile;
 import technology.tabula.*;
 import com.opencsv.CSVWriter;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class TransformDataService {
         }
     }
 
-    // Metodo para extrair dados do PDF e exportar para um arquivo CSV
+    // Metodo para extrair dados do PDF e exportar para um arquivo CSV arquivo já pré-definido
     public void processPdfAndExportToCSV() throws IOException {
         UtilsService.extractPdfFromZip(directory.concat(zip), pdfFilename, directory);
 
@@ -76,5 +77,40 @@ public class TransformDataService {
         UtilsService.compactToZip(List.of(anexoCsv),directory, "Teste_Joao_Victor.zip");
 
         UtilsService.deleteFilesByPath(List.of(directory.concat(anexoCsv), directory.concat(pdfFilename)));
+    }
+
+    // Metodo para extrair dados do PDF e exportar para um arquivo CSV arquivo enviado na requisição
+    public void processPdfAndExportToCSV(MultipartFile file) throws IOException {
+
+        List<String[]> data = new ArrayList<>();
+
+        try (PDDocument document = PDDocument.load(file.getInputStream())) {
+            SpreadsheetExtractionAlgorithm sea = new SpreadsheetExtractionAlgorithm();
+
+            ObjectExtractor extractor = new ObjectExtractor(document);
+            PageIterator pi = extractor.extract();
+
+            while (pi.hasNext()) {
+                Page page = pi.next();
+
+                List<Table> tables = sea.extract(page);
+
+                for (Table table : tables) {
+                    List<List<RectangularTextContainer>> rows = table.getRows();
+                    for (List<RectangularTextContainer> cells : rows) {
+                        List<String> row = new ArrayList<>();
+                        for (RectangularTextContainer cell : cells) {
+                            String text = cell.getText().replace("\r", " ");
+                            row.add(text);
+                        }
+                        data.add(row.toArray(new String[0]));
+                    }
+                }
+            }
+        }
+        String csvFilePath = "/home/joao/Documentos/".concat(Objects.requireNonNull(file.getResource().getFilename()).concat(".csv"));
+        try (CSVWriter writer = new CSVWriter(new FileWriter(csvFilePath))) {
+            writer.writeAll(data);
+        }
     }
 }
